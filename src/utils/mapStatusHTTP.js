@@ -9,6 +9,6 @@ const httpErrorMap = {
   INVALID_VALUE: 422,
 };
 
-const mapStatusHTTP = (status) => httpErrorMap[status] || 500;
+function mapStatusHTTP(status) { return httpErrorMap[status] || 500; }
 
 module.exports = mapStatusHTTP;

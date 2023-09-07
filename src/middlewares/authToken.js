@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 const getToken = require('../utils/getToken');
 
-const authToken = (request, response, next) => {
+function authToken(request, response, next) {
   const { authorization } = request.headers;
 
   if (!authorization) return response.status(401).json({ message: 'Token not found' });
@@ -15,6 +15,6 @@ const authToken = (request, response, next) => {
     console.error(error.message);
     return response.status(401).json({ message: 'Expired or invalid token' });
   }
-};
+}
 
 module.exports = authToken;

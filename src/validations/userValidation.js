@@ -1,6 +1,6 @@
 const { userSchema } = require('./schemas');
 
-const validateUser = (keys) => {
+function validateUser(keys) {
   const { error } = userSchema.validate(keys);
 
   if (error) {
@@ -16,7 +16,7 @@ const validateUser = (keys) => {
 
     return { status: 'BAD_REQUEST', message };
   }
-};
+}
 
 module.exports = {
   validateUser,

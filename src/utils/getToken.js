@@ -1,3 +1,3 @@
-const extractToken = (bearerToken) => bearerToken.split(' ')[1];
+function extractToken(bearerToken) { return bearerToken.split(' ')[1]; }
 
 module.exports = extractToken;

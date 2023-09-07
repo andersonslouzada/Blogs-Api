@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken'); 
 const { User } = require('../models');
 
-const login = async (email, password) => {
+async function login(email, password) {
 if (!email || !password) {
   return { status: 'BAD_REQUEST', data: { message: 'Some required fields are missing' } };
 }
@@ -18,7 +18,7 @@ const payload = {
 const token = jwt.sign(payload, process.env.JWT_SECRET, { algorithm: 'HS256', expiresIn: '1h' });
 
 return { status: 'SUCCESSFUL', data: { token } };
-};
+}
 
 module.exports = {
   login,
