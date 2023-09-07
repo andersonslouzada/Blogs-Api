@@ -9,13 +9,21 @@ async function createUser(request, response) {
   return response.status(mapStatusHTTP(status)).json(data);
 }
 
-async function getUsers(request, response) {
-  const { status, data } = await userService.getUsers();
+async function findAll(request, response) {
+  const { status, data } = await userService.findAll();
+
+  return response.status(mapStatusHTTP(status)).json(data);
+}
+
+async function findById(request, response) {
+  const { id } = request.params;
+  const { status, data } = await userService.findById(id);
 
   return response.status(mapStatusHTTP(status)).json(data);
 }
 
 module.exports = {
   createUser,
-  getUsers,
+  findAll,
+  findById,
 };
