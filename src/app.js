@@ -1,4 +1,5 @@
 const express = require('express');
+const { loginController } = require('./controllers');
 
 // ...
 
@@ -11,13 +12,7 @@ app.get('/', (_request, response) => {
 
 app.use(express.json());
 
-app.post('/login', (req, res) => {
-  const { email, password } = req.body;
-  if (!email || !password) { 
-    return res.status(400).json({ message: 'Some required fields are missing' });
-  }
-  return res.status(200).json({ message: 'Login efetuado com sucesso' });
-});
+app.post('/login', loginController.login);
 
 // É importante exportar a constante `app`,
 // para que possa ser utilizada pelo arquivo `src/server.js`

@@ -25,6 +25,11 @@ module.exports = {
         type: Sequelize.STRING, 
         allowNull: true
       },
+    },
+    {
+      tableName: 'users',
+      timestamps: false,
+      underscored: true,
     })
   },
 
