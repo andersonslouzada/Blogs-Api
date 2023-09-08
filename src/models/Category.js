@@ -1,7 +1,3 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   const CategoryModel = sequelize.define('Category', {
     id: { 
