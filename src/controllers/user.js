@@ -9,7 +9,7 @@ async function createUser(request, response) {
   return response.status(mapStatusHTTP(status)).json(data);
 }
 
-async function findAll(request, response) {
+async function findAll(_request, response) {
   const { status, data } = await userService.findAll();
 
   return response.status(mapStatusHTTP(status)).json(data);

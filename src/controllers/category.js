@@ -9,11 +9,11 @@ async function createCategory(request, response) {
   return response.status(mapStatusHTTP(status)).json(data);
 }
 
-// async function findAll(request, response) {
-//   const { status, data } = await userService.findAll();
+async function findAll(_request, response) {
+  const { status, data } = await categoryService.findAll();
 
-//   return response.status(mapStatusHTTP(status)).json(data);
-// }
+  return response.status(mapStatusHTTP(status)).json(data);
+}
 
 // async function findById(request, response) {
 //   const { id } = request.params;
@@ -24,6 +24,6 @@ async function createCategory(request, response) {
 
 module.exports = {
   createCategory,
-  // findAll,
+  findAll,
   // findById,
 };

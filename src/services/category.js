@@ -9,10 +9,10 @@ async function createCategory(category) {
   return { status: 'CREATED', data: newCategory };
 }
 
-// async function findAll() {
-//   const users = await User.findAll({ attributes: { exclude: ['password'] } });
-//   return { status: 'SUCCESSFUL', data: users };
-// }
+async function findAll() {
+  const categories = await Category.findAll();
+  return { status: 'SUCCESSFUL', data: categories };
+}
 
 // async function findById(id) {
 //   const user = await User.findByPk(id, { attributes: { exclude: ['password'] } });
@@ -22,6 +22,6 @@ async function createCategory(category) {
 
 module.exports = {
   createCategory,
-  // findAll,
+  findAll,
   // findById,
 };
