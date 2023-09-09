@@ -12,6 +12,13 @@ const createPost = async (request, response) => {
   return response.status(mapStatusHTTP(status)).json(data);
 };
 
+async function getAllPosts(_request, response) {
+  const { status, data } = await postsService.getAllPosts();
+
+  return response.status(mapStatusHTTP(status)).json(data);
+}
+
 module.exports = {
   createPost,
+  getAllPosts,
 };
