@@ -15,8 +15,7 @@ module.exports = (sequelize, DataTypes) => {
       unique: true
     },
     userId: { 
-      type: DataTypes.STRING, 
-      allowNull: false,
+      type: DataTypes.INTEGER, 
       references: {
         model: 'users',
         key: 'id',
@@ -25,10 +24,10 @@ module.exports = (sequelize, DataTypes) => {
       onUpdate: 'CASCADE',
     },
     published: { 
-      type: DataTypes.STRING,
+      type: DataTypes.DATE,
     },
     updated: { 
-      type: DataTypes.STRING,
+      type: DataTypes.DATE,
     },
   },
   {

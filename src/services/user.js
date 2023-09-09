@@ -29,8 +29,23 @@ async function findById(id) {
   return { status: 'SUCCESSFUL', data: user };
 }
 
+const deleteUser = async (userId) => {
+  const user = await User.findByPk(userId);
+
+  if (!user) return { status: 'NOT_FOUND', data: { message: 'My user is not in database' } };
+
+  if (user.dataValues.id !== userId) {
+    return { status: 'UNAUTHORIZED', data: { message: 'Unauthorized user' } };
+  }
+
+  const deletedUser = await User.destroy({ where: { id: userId } });
+
+  return { status: 'NO_CONTENT', data: deletedUser };
+};
+
 module.exports = {
   createUser,
   findAll,
   findById,
+  deleteUser,
 };

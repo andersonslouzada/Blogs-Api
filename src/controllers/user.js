@@ -1,4 +1,5 @@
 const { userService } = require('../services');
+const decodeToken = require('../utils/decodeToken');
 const mapStatusHTTP = require('../utils/mapStatusHTTP');
 
 async function createUser(request, response) {
@@ -22,8 +23,17 @@ async function findById(request, response) {
   return response.status(mapStatusHTTP(status)).json(data);
 }
 
+const deleteUser = async (request, response) => {
+  const token = request.headers.authorization;
+  const { sub: userId } = decodeToken(token);
+
+  const { status, data } = await userService.deleteUser(userId);
+  return response.status(mapStatusHTTP(status)).json(data);
+};
+
 module.exports = {
   createUser,
   findAll,
   findById,
+  deleteUser,
 };

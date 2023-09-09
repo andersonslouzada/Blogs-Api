@@ -1,12 +1,12 @@
 const jwt = require('jsonwebtoken');
-const getToken = require('../utils/extractToken');
+const extractToken = require('../utils/extractToken');
 
 function authToken(request, response, next) {
   const { authorization } = request.headers;
 
   if (!authorization) return response.status(401).json({ message: 'Token not found' });
 
-  const token = getToken(authorization);
+  const token = extractToken(authorization);
 
   try {
     jwt.verify(token, process.env.JWT_SECRET);

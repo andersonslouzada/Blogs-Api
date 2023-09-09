@@ -25,8 +25,20 @@ async function getPostById(request, response) {
   return response.status(mapStatusHTTP(status)).json(data);
 }
 
+const deletePost = async (request, response) => {
+  const { id } = request.params;  
+  const token = request.headers.authorization;
+
+  const { sub: userId } = decodeToken(token);
+
+  const { status, data } = await postsService.deletePost(userId, id);
+
+  return response.status(mapStatusHTTP(status)).json(data);
+};
+
 module.exports = {
   createPost,
   getAllPosts,
   getPostById,
+  deletePost,
 };

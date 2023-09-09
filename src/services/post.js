@@ -42,14 +42,29 @@ async function getPostById(id) {
       { model: Category, as: 'categories', through: { attributes: [] } },
     ],
   });
-  
+
   if (!post) return { status: 'NOT_FOUND', data: { message: 'Post does not exist' } };
 
   return { status: 'SUCCESSFUL', data: post };
 }
 
+const deletePost = async (userId, postId) => {
+  const postToDelete = await BlogPost.findByPk(postId);
+
+  if (!postToDelete) return { status: 'NOT_FOUND', data: { message: 'Post does not exist' } };
+
+  // if (postToDelete.dataValues.userId !== userId) {
+  //   return { status: 'UNAUTHORIZED', data: { message: 'Unauthorized user' } };
+  // }
+
+  const removedPost = await BlogPost.destroy({ where: { id: postId } });
+
+  return { status: 'NO_CONTENT', data: removedPost };
+};
+
 module.exports = {
   createPost,
   getAllPosts,
   getPostById,
+  deletePost,
 };
