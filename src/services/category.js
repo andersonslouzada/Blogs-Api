@@ -14,14 +14,14 @@ async function findAll() {
   return { status: 'SUCCESSFUL', data: categories };
 }
 
-// async function findById(id) {
-//   const user = await User.findByPk(id, { attributes: { exclude: ['password'] } });
-//   if (!user) return { status: 'NOT_FOUND', data: { message: 'User does not exist' } };
-//   return { status: 'SUCCESSFUL', data: user };
-// }
+async function findById(id) {
+  const category = await Category.findByPk(id);
+  if (!category) return { status: 'NOT_FOUND', data: { message: 'User does not exist' } };
+  return { status: 'SUCCESSFUL', data: category };
+}
 
 module.exports = {
   createCategory,
   findAll,
-  // findById,
+  findById,
 };

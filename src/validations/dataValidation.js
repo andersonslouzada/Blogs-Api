@@ -35,10 +35,6 @@ function validatePost(keys) {
 }
 
 module.exports = {
-  validateCategory,
-};
-
-module.exports = {
   validateUser,
   validateCategory,
   validatePost,

@@ -25,10 +25,10 @@ module.exports = (sequelize, DataTypes) => {
       onUpdate: 'CASCADE',
     },
     published: { 
-      type: DataTypes.STRING, 
+      type: DataTypes.STRING,
     },
     updated: { 
-      type: DataTypes.STRING, 
+      type: DataTypes.STRING,
     },
   },
   {

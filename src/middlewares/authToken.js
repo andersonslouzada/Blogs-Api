@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const getToken = require('../utils/getToken');
+const getToken = require('../utils/extractToken');
 
 function authToken(request, response, next) {
   const { authorization } = request.headers;
