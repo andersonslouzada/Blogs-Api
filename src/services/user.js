@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 const { User } = require('../models');
-const schema = require('../validations/userValidation');
+const schema = require('../validations/dataValidation');
 
 async function createUser(user) {
   const errors = schema.validateUser(user);

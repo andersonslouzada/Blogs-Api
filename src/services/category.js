@@ -1,5 +1,5 @@
 const { Category } = require('../models');
-const schema = require('../validations/categoryValidation');
+const schema = require('../validations/dataValidation');
 
 async function createCategory(category) {
   const error = schema.validateCategory(category);
