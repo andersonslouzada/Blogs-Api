@@ -18,7 +18,15 @@ async function getAllPosts(_request, response) {
   return response.status(mapStatusHTTP(status)).json(data);
 }
 
+async function getPostById(request, response) {
+  const { id } = request.params;
+  const { status, data } = await postsService.getPostById(id);
+
+  return response.status(mapStatusHTTP(status)).json(data);
+}
+
 module.exports = {
   createPost,
   getAllPosts,
+  getPostById,
 };
