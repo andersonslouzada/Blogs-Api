@@ -11,8 +11,7 @@ async function createPost(userId, post) {
   const newPost = await BlogPost.create(newPostOBJ);
 
   const newPostCategories = categoryIds.map((categoryId) => (
-    { postId: newPost.dataValues.id, categoryId }
-    ));
+    { postId: newPost.dataValues.id, categoryId }));
 
   const verifyCategories = await Promise.all(categoryIds
     .map(async (categoryId) => Category.findAll({ where: { id: categoryId } })));
@@ -20,9 +19,7 @@ async function createPost(userId, post) {
   if (verifyCategories.some((category) => category.length === 0)) {
     return { status: 'BAD_REQUEST', data: { message: 'one or more "categoryIds" not found' } };
   }
-
   await PostCategory.bulkCreate(newPostCategories);
-
   return { status: 'CREATED', data: newPost };
 }
 
@@ -33,7 +30,6 @@ async function getAllPosts() {
       { model: Category, as: 'categories', through: { attributes: [] } },
     ],
   });
-
   return { status: 'SUCCESSFUL', data: posts };
 }
 
@@ -44,25 +40,17 @@ async function getPostById(id) {
       { model: Category, as: 'categories', through: { attributes: [] } },
     ],
   });
-
   if (!post) return { status: 'NOT_FOUND', data: { message: 'Post does not exist' } };
-
   return { status: 'SUCCESSFUL', data: post };
 }
 
-const deletePost = async (userId, postId) => {
+async function deletePost(userId, postId) {
   const postToDelete = await BlogPost.findByPk(postId);
-
   if (!postToDelete) return { status: 'NOT_FOUND', data: { message: 'Post does not exist' } };
 
-  // if (postToDelete.dataValues.userId !== userId) {
-  //   return { status: 'UNAUTHORIZED', data: { message: 'Unauthorized user' } };
-  // }
-
   const removedPost = await BlogPost.destroy({ where: { id: postId } });
-
   return { status: 'NO_CONTENT', data: removedPost };
-};
+}
 
 module.exports = {
   createPost,
