@@ -25,7 +25,7 @@ async function findById(request, response) {
 
 const deleteUser = async (request, response) => {
   const token = request.headers.authorization;
-  const { sub: userId } = decodeToken(token);
+  const { id: userId } = decodeToken(token);
 
   const { status, data } = await userService.deleteUser(userId);
   return response.status(mapStatusHTTP(status)).json(data);

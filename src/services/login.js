@@ -9,7 +9,7 @@ if (!email || !password) {
 const user = await User.findOne({ where: { email, password } });
 if (!user) return { status: 'BAD_REQUEST', data: { message: 'Invalid fields' } };
 
-const payload = { sub: user.dataValues.id, name: user.dataValues.displayName, role: 'user' };
+const payload = { id: user.dataValues.id, name: user.dataValues.displayName, role: 'user' };
 
 const token = jwt.sign(payload, process.env.JWT_SECRET, { algorithm: 'HS256', expiresIn: '1h' });
 

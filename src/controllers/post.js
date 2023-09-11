@@ -6,7 +6,7 @@ const createPost = async (request, response) => {
   const post = request.body;
   const token = request.headers.authorization;
 
-  const { sub: userId } = decodeToken(token);
+  const { id: userId } = decodeToken(token);
   const { status, data } = await postsService.createPost(userId, post);
 
   return response.status(mapStatusHTTP(status)).json(data);
@@ -30,27 +30,27 @@ async function updatePost(request, response) {
   const post = request.body;
   const token = request.headers.authorization;
 
-  const { sub: userId } = decodeToken(token);
+  const { id: userId } = decodeToken(token);
   const { status, data } = await postsService.updatePost(userId, id, post);
 
   return response.status(mapStatusHTTP(status)).json(data);
 }
 
-// const deletePost = async (request, response) => {
-//   const { id } = request.params;  
-//   const token = request.headers.authorization;
+const deletePost = async (request, response) => {
+  const { id } = request.params;  
+  const token = request.headers.authorization;
 
-//   const { sub: userId } = decodeToken(token);
+  const { id: userId } = decodeToken(token);
 
-//   const { status, data } = await postsService.deletePost(userId, id);
+  const { status, data } = await postsService.deletePost(userId, id);
 
-//   return response.status(mapStatusHTTP(status)).json(data);
-// };
+  return response.status(mapStatusHTTP(status)).json(data);
+};
 
 module.exports = {
   createPost,
   getAllPosts,
   getPostById,
   updatePost,
-  // deletePost,
+  deletePost,
 };
