@@ -1,4 +1,4 @@
-const { userSchema, categorySchema, postSchema } = require('./schemas');
+const { userSchema, categorySchema, postSchema, UpdatePostSchema } = require('./schemas');
 
 function validateUser(keys) {
   const { error } = userSchema.validate(keys);
@@ -34,8 +34,17 @@ function validatePost(keys) {
   }
 }
 
+function validateUpdatePost(keys) {
+  const { error } = UpdatePostSchema.validate(keys);
+
+  if (error) {
+    return { status: 'BAD_REQUEST', message: 'Some required fields are missing' };
+  }
+}
+
 module.exports = {
   validateUser,
   validateCategory,
   validatePost,
+  validateUpdatePost,
 };

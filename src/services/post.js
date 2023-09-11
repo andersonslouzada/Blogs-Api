@@ -44,17 +44,37 @@ async function getPostById(id) {
   return { status: 'SUCCESSFUL', data: post };
 }
 
-async function deletePost(userId, postId) {
-  const postToDelete = await BlogPost.findByPk(postId);
-  if (!postToDelete) return { status: 'NOT_FOUND', data: { message: 'Post does not exist' } };
+async function updatePost(userId, postId, post) {
+  const error = schema.validateUpdatePost(post);
+  if (error) return { status: error.status, data: { message: error.message } };
 
-  const removedPost = await BlogPost.destroy({ where: { id: postId } });
-  return { status: 'NO_CONTENT', data: removedPost };
+  const postToUpdate = await BlogPost.findByPk(postId, {
+    include: [
+      { model: User, as: 'user', attributes: { exclude: ['password'] } },
+      { model: Category, as: 'categories', through: { attributes: [] } },
+    ],
+  });
+
+  if (postToUpdate.dataValues.userId !== userId) { 
+    return { status: 'UNAUTHORIZED', data: { message: 'Unauthorized user' } };
+  }
+
+  const newPost = await postToUpdate.update(post);
+  return { status: 'SUCCESSFUL', data: newPost };
 }
+
+// async function deletePost(userId, postId) {
+//   const postToDelete = await BlogPost.findByPk(postId);
+//   if (!postToDelete) return { status: 'NOT_FOUND', data: { message: 'Post does not exist' } };
+
+//   const removedPost = await BlogPost.destroy({ where: { id: postId } });
+//   return { status: 'NO_CONTENT', data: removedPost };
+// }
 
 module.exports = {
   createPost,
   getAllPosts,
   getPostById,
-  deletePost,
+  updatePost,
+  // deletePost,
 };

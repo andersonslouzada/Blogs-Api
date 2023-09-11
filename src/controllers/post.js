@@ -25,20 +25,32 @@ async function getPostById(request, response) {
   return response.status(mapStatusHTTP(status)).json(data);
 }
 
-const deletePost = async (request, response) => {
-  const { id } = request.params;  
+async function updatePost(request, response) {
+  const { id } = request.params;
+  const post = request.body;
   const token = request.headers.authorization;
 
   const { sub: userId } = decodeToken(token);
-
-  const { status, data } = await postsService.deletePost(userId, id);
+  const { status, data } = await postsService.updatePost(userId, id, post);
 
   return response.status(mapStatusHTTP(status)).json(data);
-};
+}
+
+// const deletePost = async (request, response) => {
+//   const { id } = request.params;  
+//   const token = request.headers.authorization;
+
+//   const { sub: userId } = decodeToken(token);
+
+//   const { status, data } = await postsService.deletePost(userId, id);
+
+//   return response.status(mapStatusHTTP(status)).json(data);
+// };
 
 module.exports = {
   createPost,
   getAllPosts,
   getPostById,
-  deletePost,
+  updatePost,
+  // deletePost,
 };
