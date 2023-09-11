@@ -6,8 +6,13 @@ async function createPost(userId, post) {
   if (error) return { status: error.status, data: { message: error.message } };
 
   const { categoryIds, ...postContent } = post;
-  const newPost = await BlogPost
-    .create({ ...postContent, userId });
+  const newPostOBJ = { ...postContent, userId, updated: new Date(), published: new Date() };
+
+  const newPost = await BlogPost.create(newPostOBJ);
+
+  const newPostCategories = categoryIds.map((categoryId) => (
+    { postId: newPost.dataValues.id, categoryId }
+    ));
 
   const verifyCategories = await Promise.all(categoryIds
     .map(async (categoryId) => Category.findAll({ where: { id: categoryId } })));
@@ -15,9 +20,6 @@ async function createPost(userId, post) {
   if (verifyCategories.some((category) => category.length === 0)) {
     return { status: 'BAD_REQUEST', data: { message: 'one or more "categoryIds" not found' } };
   }
-
-  const newPostCategories = categoryIds
-    .map((categoryId) => ({ postId: newPost.dataValues.id, categoryId }));
 
   await PostCategory.bulkCreate(newPostCategories);
 
